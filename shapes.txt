@@ -1,0 +1,165 @@
+#include <iostream>
+using namespace std;
+
+class circle
+{
+private:
+	int r;
+public:
+	circle(int = 4);
+	int getr()
+	{
+		return r;
+	}
+	void setR(int rad)
+	{
+		r = rad;
+	}
+	virtual void area();
+};
+circle::circle(int rad)
+{
+	r = rad;
+}
+void circle::area()
+{
+	cout << " Area of circle: " << 3.14 * r * r << endl;
+}
+class sphere :public circle
+{
+	public:
+	void area();
+};
+void sphere::area()
+{
+	cout << " Area of sphere: " << 4 * 3.14 * getr() * getr() << endl;
+}
+class cylinder :public circle
+{
+private:
+	int h;
+public:
+	cylinder(int =5, int = 7);
+	void setH(int);
+	int getH();
+	void area();
+};
+cylinder::cylinder(int r, int H)
+{
+	setR(r);
+	h = H;
+}
+int cylinder::getH()
+{
+	return h;
+}
+void cylinder::area()
+{
+	cout << " Area of cylinder: " << (2 * 3.14 * getr() * getr()) + (4 * 3.14 * getr() * getr() * h) << endl;
+}
+void cylinder::setH(int H)
+{
+	h = H;
+}
+void main()
+{
+	cylinder c1;
+	sphere s;
+	circle *c2, c;
+
+	c2 = &c1;
+	c2->area();
+
+	c2 = &s;
+	c2->area();
+
+	c2 = &c;
+	c2->area();
+}
+
+------------------------------------------------------------------------------------------------------
+
+#include <iostream>
+using namespace std;
+
+class shape
+{
+private:
+	double area;
+public:
+	shape(double = 0);
+	virtual void Display();
+	virtual void Calculate_Area();
+};
+shape::shape(double a)
+{
+	area = a;
+}
+void shape::Display()
+{
+	cout << " Area: " << area << endl;
+}
+void shape::Calculate_Area()
+{
+	cout << " Area: " << area << endl;
+}
+class circle :public shape
+{
+private:
+	int r;
+public:
+	circle(int = 5);
+	void Display();
+	void Calculate_Area();
+};
+circle::circle(int rad)
+{
+	r = rad;
+}
+void circle::Display()
+{
+	cout << " Radius: " << r << endl;
+}
+void circle::Calculate_Area()
+{
+	cout << " Area of circle: " << 3.14 * r * r << endl;
+}
+class rectangle :public shape
+{
+private:
+	int l;
+	int b;
+public:
+	rectangle(int = 2, int = 5);
+	void Display();
+	void Calculate_Area();
+};
+rectangle::rectangle(int len, int bre)
+{
+	l = len; b = bre;
+}
+void rectangle::Display()
+{
+	cout << " Length: " << l << endl;
+	cout << " Breadth: " << b << endl;
+}
+void rectangle::Calculate_Area()
+{
+	cout << " Area of rectangle: " << l * b << endl;
+}
+int main()
+{
+	shape* p;
+	circle C1(5);
+	rectangle R1(4, 6);
+
+	p = &C1;
+	p->Calculate_Area();
+	p->Display();
+
+	p = &R1;
+	p->Calculate_Area();
+	p->Display();
+
+	return 0;
+}
